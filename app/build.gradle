@@ -8,6 +8,7 @@ android {
     compileSdk 33
 
     defaultConfig {
+        vectorDrawables.useSupportLibrary = true
         applicationId "com.example.pinple_aos"
         minSdk 24
         targetSdk 33
