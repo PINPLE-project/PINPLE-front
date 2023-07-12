@@ -5,4 +5,12 @@
     <string name="menu_title_place">서울시 장소 목록</string>
     <string name="menu_title_reminder">혼잡도 알림</string>
     <string name="menu_title_mypage">마이페이지</string>
+
+    <string name="TabLayout">TabLayout</string>
+    <string name="ViewPager">ViewPager</string>
+
+    <string name="setting_reminder"><![CDATA[<b>설정된 알림</b>]]></string>
+    <string name="notification_history"><![CDATA[<b>알림 기록</b>]]></string>
+
+
 </resources>

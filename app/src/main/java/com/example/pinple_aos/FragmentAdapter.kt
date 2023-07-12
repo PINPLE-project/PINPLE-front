@@ -1,15 +1,20 @@
 package com.example.pinple_aos
 
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentPagerAdapter
 import com.example.pinple_aos.fragments.ReminderListFragment
+import com.example.pinple_aos.fragments.ReminderRecordFragment
 
-class FragmentAdapter (fm : FragmentManager): FragmentPagerAdapter(fm) {
+
+class FragmentAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+
     //position 에 따라 원하는 Fragment로 이동시키기
     override fun getItem(position: Int): Fragment {
-        val fragment =  when(position)
-        {
-            0-> ReminderListFragment().newInstant()
-            1-> ReminderRecordFragment().newInstant()
-            else -> ReminderListFragment().newInstant()
+        val fragment = when (position) {
+            0 -> ReminderListFragment.newInstance()
+            1 -> ReminderRecordFragment.newInstance()
+            else -> ReminderListFragment.newInstance()
         }
         return fragment
     }
@@ -19,11 +24,11 @@ class FragmentAdapter (fm : FragmentManager): FragmentPagerAdapter(fm) {
 
     //tab의 이름 fragment마다 바꾸게 하기
     override fun getPageTitle(position: Int): CharSequence? {
-        val title = when(position)
-        {
-            0->"0ne"
-            1->"Two"
+        val title = when (position) {
+            0 -> "설정된 알림"
+            1 -> "알림 기록"
             else -> "main"
         }
-        return title     }
+        return title
+    }
 }
