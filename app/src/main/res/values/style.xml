@@ -81,7 +81,7 @@
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/logo_white_splash</item>
+        <item name="android:windowBackground">@drawable/img_logo_long_white_png</item>
     </style>
 
 
