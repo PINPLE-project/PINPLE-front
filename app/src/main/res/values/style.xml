@@ -80,9 +80,22 @@
         <item name="android:transitionGroup">false</item>
     </style>
 
-    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowBackground">@drawable/img_logo_long_white_png</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
     </style>
+
+    <style name="EditTextStyle">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">@color/color_main_text</item>
+        <!-- 다른 속성들도 추가로 설정 가능 -->
+    </style>
+    <style name="EditTextHintStyle">
+        <item name="android:fontFamily">@font/pretendard_regular</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/setting_name</item>
+    </style>
+    <!-- 다른 속성들도 추가로 설정 가능 -->
 
 
 
