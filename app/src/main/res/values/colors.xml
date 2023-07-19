@@ -32,4 +32,7 @@
 
     <color name="color_success">#1FAD4E</color>
     <color name="color_error">#BA1A1A</color>
+    
+    <color name="color_indicator_gray">#E8E8E8</color>
+    <color name="setting_name">#B6B6B6</color>
 </resources>
