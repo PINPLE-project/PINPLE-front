@@ -5,7 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pinple_aos.R
+import com.example.pinple_aos.databinding.FragmentMyPageBinding
+import com.example.pinple_aos.dto.MyPageMyPinAdapter
+import com.example.pinple_aos.dto.MyPageScrapAdapter
+import com.example.pinple_aos.entity.MyPin
+import com.example.pinple_aos.entity.Scrap
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,24 +24,79 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class MyPageFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
+    private var _binding:FragmentMyPageBinding? = null
+    private val binding get() = _binding!!
+    private lateinit var adapter: MyPageMyPinAdapter //마이핀 어댑터
+    private lateinit var sadapter:MyPageScrapAdapter //스크랩 어댑터
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_page, container, false)
+        _binding = FragmentMyPageBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupRecyclerView()
+        populateRecyclerView()
+    }
+
+
+    private fun setupRecyclerView(){
+        //mypin
+        val myPinList: List<MyPin> = createMyPinList()
+        adapter = MyPageMyPinAdapter(ArrayList())
+        binding.rvMpMypin.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.HORIZONTAL, false)
+        binding.rvMpMypin.adapter = adapter
+        binding.tvMpMypinCnt.text = myPinList.size.toString()
+
+        //scrap
+        val scrapList: List<Scrap> = createScrapList()
+        sadapter = MyPageScrapAdapter(ArrayList())
+        binding.rvMpScrap.layoutManager = LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false)
+        binding.rvMpScrap.adapter = sadapter
+
+        //state에 따라 ellipse, background 선택
+    }
+
+    private fun populateRecyclerView(){
+        val dataList = createMyPinList()
+        adapter.setData(dataList)
+
+        val scrapList = createScrapList()
+        sadapter.setData(scrapList)
+    }
+
+    //datalist 생성
+    private fun createMyPinList(): ArrayList<MyPin>{ //마이핀
+        val myPinList = arrayListOf(
+            MyPin(R.drawable.icon_pin_toomany_scared, "서울 서초구 잠원동 122-1", "7시간 전"),
+            MyPin(R.drawable.icon_pin_middle_good, "서울 강서구 마곡동", "10시간 전"),
+            MyPin(R.drawable.icon_pin_toomany_scared, "서울 마포구 망원동", "12시간 전")
+        )
+        return myPinList
+    }
+
+    private fun createScrapList(): ArrayList<Scrap>{
+        val scrapList = arrayListOf(
+            Scrap("반포한강공원", "서울 용산구 이촌로72길 62", "보통"),
+            Scrap("이촌한강공원", "서울 용산구 이촌로72길 62", "약간 혼잡"),
+            Scrap("이촌한강공원", "서울 용산구 이촌로72길 62", "혼잡")
+        )
+        return scrapList
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

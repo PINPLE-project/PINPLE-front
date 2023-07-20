@@ -32,4 +32,6 @@
 
     <color name="color_success">#1FAD4E</color>
     <color name="color_error">#BA1A1A</color>
+
+    <color name="color_darken_40">#99000000</color>
 </resources>
