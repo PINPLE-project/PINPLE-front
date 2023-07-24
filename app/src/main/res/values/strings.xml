@@ -11,6 +11,8 @@
 
     <string name="setting_reminder"><![CDATA[<b>설정된 알림</b>]]></string>
     <string name="notification_history"><![CDATA[<b>알림 기록</b>]]></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>
