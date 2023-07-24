@@ -16,9 +16,10 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
+                android:id="@+id/backgroundRecord"
                 android:layout_width="match_parent"
                 android:layout_height="76dp"
-                android:background="@color/white"
+                android:background="@color/light_bg_middle"
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -39,7 +40,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/textPlace"
+                            android:id="@+id/textPlaceRecord"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom"
@@ -54,11 +55,12 @@
                             android:gravity="center_vertical">
 
                             <Button
-                                android:id="@+id/buttonDelete"
+                                android:id="@+id/buttonDeleteRecord"
                                 android:layout_width="match_parent"
                                 android:layout_height="48dp"
                                 android:background="@android:color/transparent"
                                 android:drawableRight="@drawable/icon_delete_tiny"
+                                android:textAppearance="@style/b6_12_reg"
                                 android:minWidth="0dp"
                                 android:minHeight="0dp"
                                 android:text="삭제"
@@ -69,19 +71,19 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             app:srcCompat="@drawable/icon_time_small" />
 
                         <TextView
-                            android:id="@+id/textTime"
+                            android:id="@+id/textTimeRecord"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="8dp"
@@ -91,6 +93,24 @@
                             android:text="2023년 5월 28일 (일) 17:00"
                             android:textColor="@color/color_gray3"
                             app:titleTextAppearance="@style/b6_12_reg" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical">
+                            <Button
+                                android:id="@+id/buttonStatus"
+                                android:layout_width="match_parent"
+                                android:layout_height="48dp"
+                                android:background="@android:color/transparent"
+                                android:drawableRight="@drawable/circle_status_middle"
+                                android:textAppearance="@style/b5_12_bold"
+                                android:minWidth="0dp"
+                                android:minHeight="0dp"
+                                android:text="보통"
+                                android:textColor="@color/color_status_middle" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
                 </LinearLayout>
