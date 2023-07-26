@@ -13,7 +13,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
-        app:layout_constraintBottom_toTopOf="@+id/choose_char_textview"
         app:layout_constraintStart_toStartOf="@+id/choose_char_textview"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/indicator_step_2" />
