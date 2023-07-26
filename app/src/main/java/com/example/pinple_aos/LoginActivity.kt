@@ -2,6 +2,7 @@ package com.example.pinple_aos
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -14,7 +15,6 @@ import com.google.android.gms.common.api.ApiException
 import com.kakao.sdk.auth.model.OAuthToken
 import com.kakao.sdk.common.KakaoSdk
 import com.kakao.sdk.user.UserApiClient
-
 
 class MyApplication : Application() {
     override fun onCreate() {
@@ -30,8 +30,6 @@ class LoginActivity : AppCompatActivity() {
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
         startActivity(intent)
     }
-
-    private val rcGoogleSignIn = 9001
 
     private val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
