@@ -24,7 +24,7 @@
         android:layout_marginTop="6dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_scrap_place"
-        app:srcCompat="@drawable/icon_address_tiny" />
+        app:srcCompat="@drawable/icon_address_tiny_acacac" />
 
     <TextView
         android:id="@+id/tv_scrap_address"
