@@ -7,6 +7,285 @@
         android:layout_height="match_parent"
         tools:context=".MainActivity">
 
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/nestedScrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="56dp"
+            android:fillViewport="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/content_frame"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/color_background">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/content_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="128dp"
+                    android:background="@drawable/mypage_header_background"
+                    app:layout_constraintBottom_toTopOf="@id/contents_user_info"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:id="@+id/tv_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="28dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:text="안녕하세요,"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_mp_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="김지비"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_header" />
+
+                    <TextView
+                        android:id="@+id/tv_mp_nim"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:text="님"
+                        android:textColor="@color/white"
+                        android:textSize="24sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_mp_name"
+                        app:layout_constraintStart_toEndOf="@+id/tv_mp_name"
+                        app:layout_constraintTop_toTopOf="@+id/tv_mp_name" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/contents_user_info"
+                    android:layout_width="match_parent"
+                    android:layout_height="108dp"
+                    android:layout_marginBottom="4dp"
+                    app:layout_constraintBottom_toTopOf="@+id/content_mypin"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/content_header"
+                    android:background="@color/white">
+
+                    <ImageButton
+                        android:id="@+id/btn_mod"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:backgroundTint="@android:color/transparent"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_mp_char"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_mp_char"
+                        app:srcCompat="@drawable/icon_edit_3" />
+
+                    <TextView
+                        android:id="@+id/tv_mp_nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="24dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:text="닉네임"
+                        android:textColor="@color/color_gray3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_mp_user_nickname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:text="김지비"
+                        app:layout_constraintStart_toEndOf="@+id/tv_mp_nickname"
+                        app:layout_constraintTop_toTopOf="@+id/tv_mp_nickname"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:textColor="@color/color_main_text"/>
+
+                    <TextView
+                        android:id="@+id/tv_mp_char"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:text="캐릭터"
+                        android:textColor="@color/color_gray3"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_mp_nickname" />
+
+                    <TextView
+                        android:id="@+id/tv_mp_user_char"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="16dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="지비"
+                        android:textColor="@color/color_main_text"
+                        app:layout_constraintStart_toEndOf="@+id/tv_mp_char"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_mp_nickname" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/iv_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/content_header"
+                    app:srcCompat="@drawable/img_character_jibi" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/content_mypin"
+                    android:layout_width="match_parent"
+                    android:layout_height="208dp"
+                    android:layout_marginBottom="4dp"
+                    app:layout_constraintBottom_toTopOf="@id/content_scrap"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/contents_user_info"
+                    android:background="@color/white">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_mp_mypin"
+                        android:layout_width="match_parent"
+                        android:layout_height="116dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_mp_mypin" />
+
+                    <TextView
+                        android:id="@+id/tv_mp_mypin_cnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:text="2"
+                        android:textColor="@color/color_gray3"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_mp_mypin"
+                        app:layout_constraintEnd_toStartOf="@+id/tv_cnt"
+                        app:layout_constraintTop_toTopOf="@+id/tv_mp_mypin" />
+
+                    <TextView
+                        android:id="@+id/tv_cnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:text="개"
+                        android:textColor="@color/color_gray3"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_mp_mypin"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_mp_mypin" />
+
+                    <TextView
+                        android:id="@+id/tv_mp_mypin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="MY 핀"
+                        android:textColor="@color/color_main_text"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/iv_icon_pin_small"
+                        app:layout_constraintStart_toEndOf="@+id/iv_icon_pin_small"
+                        app:layout_constraintTop_toTopOf="@+id/iv_icon_pin_small" />
+
+                    <ImageView
+                        android:id="@+id/iv_icon_pin_small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icon_pin_small" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/content_scrap"
+                    android:layout_width="match_parent"
+                    android:layout_height="304dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/content_mypin"
+                    android:background="@color/white">
+
+                    <TextView
+                        android:id="@+id/tv_mp_mypin_cnt2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:text="스크랩은 최대 3개까지 가능합니다."
+                        android:textColor="@color/color_gray3"
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_mp_scrap"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/tv_mp_scrap" />
+
+                    <TextView
+                        android:id="@+id/tv_mp_scrap"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/pretendard_bold"
+                        android:text="스크랩한 장소"
+                        android:textColor="@color/color_main_text"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/icon_recommendation" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_mp_scrap"
+                        android:layout_width="match_parent"
+                        android:layout_height="235dp"
+                        android:layout_marginTop="24dp"
+                        android:orientation="vertical"
+                        tools:listitem="@layout/mypage_scrap_list"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
             android:layout_width="match_parent"
