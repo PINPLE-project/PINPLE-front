@@ -41,7 +41,7 @@ class AccessRequestActivity :  AppCompatActivity() {
         val moveButton = findViewById<ImageButton>(R.id.button_check)
 
         fun moveToAnotherPage(){
-            val intent = Intent(this, LandingActivity::class.java)
+            val intent = Intent(this, PreferenceActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
             startActivity(intent)
         }
