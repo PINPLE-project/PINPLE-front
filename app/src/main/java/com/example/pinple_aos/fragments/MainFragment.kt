@@ -14,7 +14,6 @@ import com.naver.maps.map.MapFragment
 import com.naver.maps.map.OnMapReadyCallback
 import com.example.pinple_aos.databinding.FragmentMainBinding
 import com.example.pinple_aos.LocationData
-import com.naver.maps.map.util.MarkerIcons
 import com.naver.maps.map.overlay.OverlayImage
 
 class MainFragment : Fragment(R.layout.fragment_main), OnMapReadyCallback {
