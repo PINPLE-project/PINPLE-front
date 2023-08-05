@@ -1,0 +1,344 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="496dp"
+        android:background="@drawable/bottom_sheet_background"
+        tools:context=".fragments.MainPinFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="4dp"
+                        android:layout_weight="1" />
+
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="4dp"
+                        android:background="@drawable/bottom_sheet_bar" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="4dp"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:id="@+id/pinImageView"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    app:srcCompat="@drawable/icon_address_tiny" />
+
+                                <TextView
+                                    android:id="@+id/titlePlaceText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="8dp"
+                                    android:layout_weight="1"
+                                    android:fontFamily="@font/pretendard_bold"
+                                    android:text="서울 서초구 잠원동 122-1"
+                                    android:textAppearance="@style/h3_20_bold"
+                                    android:textColor="@color/color_main_text" />
+
+                            </LinearLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="24dp">
+
+                                <LinearLayout
+                                    android:id="@+id/writterLinearLayout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:id="@+id/writterImageView"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:src="@drawable/icon_user_small" />
+
+                                        <TextView
+                                            android:id="@+id/writterTextView"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="8dp"
+                                            android:fontFamily="@font/pretendard_regular"
+                                            android:text="작성자"
+                                            android:textAppearance="@style/b6_12_reg"
+                                            android:textColor="@color/color_gray3" />
+
+                                    </LinearLayout>
+
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="8dp"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:id="@+id/profileImageView"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:src="@drawable/profile_jibi" />
+
+                                        <TextView
+                                            android:id="@+id/nickText"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginLeft="10dp"
+                                            android:fontFamily="@font/pretendard_bold"
+                                            android:text="똴랄라뚤랄라라라라"
+                                            android:textAppearance="@style/b5_12_bold"
+                                            android:textColor="@color/color_gray_dark" />
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+                                <ImageView
+                                    android:id="@+id/centerDividerImageView"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/writterLinearLayout"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:srcCompat="@drawable/center_divider" />
+
+                                <LinearLayout
+                                    android:id="@+id/writtenTimeLinearLayout"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:orientation="vertical"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintStart_toEndOf="@+id/centerDividerImageView"
+                                    app:layout_constraintTop_toTopOf="parent">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:id="@+id/timeImageView"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:src="@drawable/icon_time_small" />
+
+                                        <TextView
+                                            android:id="@+id/writtentextView"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginLeft="8dp"
+                                            android:fontFamily="@font/pretendard_regular"
+                                            android:text="작성시간"
+                                            android:textAppearance="@style/b6_12_reg"
+                                            android:textColor="@color/color_gray3" />
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="8dp"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:id="@+id/writtenText"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:background="@android:color/transparent"
+                                            android:drawableRight="@drawable/indicator_onoff"
+                                            android:fontFamily="@font/pretendard_bold"
+                                            android:text="3시간 전"
+                                            android:textAppearance="@style/b5_12_bold"
+                                            android:textColor="@color/color_success" />
+
+                                    </LinearLayout>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="match_parent"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:id="@+id/PinTextDate"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/pretendard_regular"
+                                            android:text="2023. 06. 06"
+                                            android:textAppearance="@style/b6_12_reg"
+                                            android:textColor="@color/color_gray_dark" />
+
+                                        <ImageView
+                                            android:id="@+id/pinCenterDivider"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="16dp"
+                                            android:layout_marginLeft="12dp"
+                                            android:layout_marginRight="12dp"
+                                            app:srcCompat="@drawable/center_divider" />
+
+
+                                        <TextView
+                                            android:id="@+id/pinTextTime"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_weight="1"
+                                            android:fontFamily="@font/pretendard_regular"
+                                            android:text="20:34"
+                                            android:textAppearance="@style/b6_12_reg"
+                                            android:textColor="@color/color_gray_dark" />
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <ImageButton
+                                android:id="@+id/populationPinButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="40dp"
+                                android:layout_marginBottom="8dp"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/selected_button_toomany" />
+
+                            <ImageButton
+                                android:id="@+id/emotionPinButton"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:src="@drawable/selected_button_scared" />
+
+                            <TextView
+                                android:id="@+id/textBoxText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:background="@drawable/textbox_background"
+                                android:fontFamily="@font/pretendard_regular"
+                                android:padding="12dp"
+                                android:text="휴일이라 그런지 공원에 사람이 많아요! 안전에 유의 해야될 것 같아요!"
+                                android:textAppearance="@style/b4_14_reg"
+                                android:textColor="@color/color_main_text" />
+
+                        </LinearLayout>
+
+                        <ImageButton
+                            android:id="@+id/reportButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="60dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/content_report"
+                            app:layout_constraintBottom_toTopOf="@+id/likeButton"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+                        <ImageButton
+                            android:id="@+id/likeButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginBottom="20dp"
+                            android:background="@android:color/transparent"
+                            android:src="@drawable/unselected_button_pin_like"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/likeCountText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:fontFamily="@font/pretendard_bold"
+                            android:text="12"
+                            android:textAppearance="@style/b3_14_bold"
+                            android:textColor="@color/white"
+                            app:layout_constraintBottom_toBottomOf="@+id/likeButton"
+                            app:layout_constraintEnd_toEndOf="@+id/likeButton"
+                            app:layout_constraintTop_toTopOf="@+id/likeButton" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
