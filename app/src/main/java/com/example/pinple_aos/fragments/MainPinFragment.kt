@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.TextView
 import com.example.pinple_aos.R
 import com.naver.maps.map.NaverMapSdk
 import com.naver.maps.map.overlay.Marker
@@ -14,6 +16,8 @@ import com.naver.maps.map.MapFragment
 import com.naver.maps.map.OnMapReadyCallback
 import com.example.pinple_aos.databinding.FragmentMainPinBinding
 import com.example.pinple_aos.PinData
+import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.OverlayImage
 
 class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback {
@@ -63,62 +67,50 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
         // 마커 추가
         addMarkers()
     }
+
+    private fun zoomInToMarker(marker: Marker) {
+        val cameraUpdate = CameraUpdate.zoomTo(15.0)
+        myNaverMap?.moveCamera(cameraUpdate)
+
+        val cameraUpdate2 = CameraUpdate.scrollTo(marker.position)
+        myNaverMap?.moveCamera(cameraUpdate2)
+    }
+
     private fun addMarkers() {
         val markerLocations = arrayListOf(
-            PinData(37.5125207, 127.0588194, 5, 5),
-            PinData(37.5660286, 126.9954924, 5, 5),
-            PinData(37.5640027, 126.9847423, 5, 4),
+            PinData(37.5125207, 127.0588194, "서울 강남구 영동대로 513", 5, 5),
+            PinData(37.5660286, 126.9954924, "서울 중구 을지로 281",5, 5),
+            PinData(37.5640027, 126.9847423, "서울특별시 중구 명동길 43",5, 4),
             // LocationData(37.5640027, 126.9847423, 300),
-            PinData(37.5149233, 127.1084366, 5, 4),
-            PinData(37.5704061, 127.0028419, 5, 3),
-            PinData(37.5551703, 126.9234777, 5, 1),
 
-            PinData(37.578077, 126.9728697, 4, 5),
-            PinData(37.5724321, 126.976902, 4, 2),
-            PinData(37.5827691, 126.991323, 4, 2),
+            PinData(37.578077, 126.9728697, "서울 종로구 통의동",4, 5),
+            PinData(37.5724321, 126.976902, "서울 종로구 세종로 1-68",4, 2),
+            PinData(37.5827691, 126.991323, "서울 종로구 율곡로 99",4, 2),
 
-            PinData(37.4824123, 126.8822401, 4, 3),
-            PinData(37.5000776, 127.0385419, 4, 4),
-            PinData(37.5408155999999, 127.0690315, 4, 5),
-            PinData(37.5054982, 127.0011512, 4, 3),
-            PinData(37.4910405, 127.004581, 4, 1),
-            PinData(37.485363, 126.9010775, 4, 1),
-            PinData(37.5523947, 126.9710685, 3,4),
-            PinData(37.5041073, 127.0475882, 3, 4),
-            PinData(37.5087378, 126.891109, 3,5),
-            PinData(37.4799015, 126.9404631, 3, 4),
-            PinData(37.5587015, 126.9342139, 3,3),
-            PinData(37.5041073, 127.0475882, 3,3),
-            PinData(37.6240118, 126.923912, 3,1),
-            PinData(37.529557, 126.9641567, 3,2),
-            PinData(37.5616893, 127.0370768, 3,3),
+            PinData(37.4824123, 126.8822401, "서울 금천구 벚꽃로 309",4, 3),
+            PinData(37.5000776, 127.0385419, "서울 강남구 역삼동",4, 4),
+            PinData(37.5408155999999, 127.0690315, "서울 광진구 아차산로 243",4, 5),
+            PinData(37.5054982, 127.0011512, "서울 서초구 신반포로 지하 188",4, 3),
+            PinData(37.4910405, 127.004581, "서울 서초구 서초대로 지하 294",4, 1),
+            PinData(37.485363, 126.9010775, "서울 구로구 도림천로 477",4, 1),
+            PinData(37.5523947, 126.9710685, "서울 용산구 한강대로 405", 3,4),
 
-            PinData(37.5785279, 126.8915822, 2,4),
-            PinData(37.6541639, 127.0566603, 2,4),
-            PinData(37.5140077, 126.9424338, 2,5),
-            PinData(37.581944, 127.0065117, 2,3),
-            PinData(37.5817874, 126.9847201, 2,2),
-            PinData(37.5235689999999, 127.0219182, 2,1),
-            PinData(37.5434322, 127.0573165, 2,1),
-            PinData(37.638904, 127.0249021, 2,3),
-            PinData(37.6483816, 127.0344179, 2,1),
-            PinData(37.5270348, 127.0390631, 2,4),
-            PinData(37.5249782, 126.9252984, 2,5),
-            PinData(37.5170751, 126.9033411, 2,3),
-            PinData(37.574506, 126.9856172, 2,1),
 
-            PinData(37.5230368, 126.982235, 1,4),
-            PinData(37.5539469, 126.9899134, 1,3),
-            PinData(37.5288904, 127.0692011, 1,5),
-            PinData(37.5525619, 126.8994384, 1,5),
-            PinData(37.5097691, 126.9952698, 1,3),
-            PinData(37.6267043, 127.0404012, 1,4),
-            PinData(37.4359624, 127.0142283, 1,4),
-            PinData(37.5446313, 127.0374023, 1,5),
-            PinData(37.5657406, 126.8753738, 1,3),
-            PinData(37.5172521, 126.9705778, 1,4),
-            PinData(37.5164777, 127.0729983, 1,5),
-            PinData(37.5185073, 127.0831435, 1,2)
+            PinData(37.5785279, 126.8915822, "서울 마포구 상암동 1606",2,4),
+            PinData(37.6541639, 127.0566603, "서울 노원구 노해로 437",2,4),
+            PinData(37.5140077, 126.9424338, "서울 동작구 노량진로 151",2,5),
+            PinData(37.581944, 127.0065117, "서울 종로구 낙산길 41",2,3),
+            PinData(37.5817874, 126.9847201, "서울 종로구 북촌로 53",2,2),
+            PinData(37.5235689999999, 127.0219182, "서울 강남구 압구정로 120",2,1),
+            PinData(37.5434322, 127.0573165, "서울 성동구 성수동2가 276-5",2,1),
+            PinData(37.638904, 127.0249021, "서울 강북구 한천로139길 42",2,3),
+            PinData(37.6483816, 127.0344179, "서울 도봉구 쌍문동 83-6",2,1),
+
+            PinData(37.5230368, 126.982235, "서울 용산구 서빙고로 137",1,4),
+            PinData(37.5539469, 126.9899134, "서울 중구 남산공원길 125-54",1,3),
+            PinData(37.5288904, 127.0692011, "서울 광진구 자양동 427-6",1,5),
+            PinData(37.5525619, 126.8994384, "서울 마포구 마포나루길 467",1,5),
+            PinData(37.5097691, 126.9952698, "서울 서초구 신반포로11길 40",1,3)
         )
 
         for (location in markerLocations) {
@@ -164,6 +156,85 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
             marker.icon = overlayImage
             marker.map = myNaverMap
 
+            // 마커 클릭 리스너 설정
+            marker.setOnClickListener {
+                showBottomSheetDialog(location)
+                true
+            }
+
+            marker.setOnClickListener {
+                showBottomSheetDialog(location)
+                zoomInToMarker(marker)
+                true
+            }
+
         }
+    }
+
+    private fun showBottomSheetDialog(pin: PinData) {
+        // BottomSheetDialog 생성
+        val dialogView = layoutInflater.inflate(R.layout.main_pin_bottom_sheet, null)
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        bottomSheetDialog.setContentView(dialogView)
+
+        // 내용 업데이트
+        dialogView.findViewById<TextView>(R.id.titlePlaceText)?.text = pin.address
+
+        bottomSheetDialog.show()
+
+
+        val populationButton = dialogView.findViewById<ImageButton>(R.id.populationPinButton)
+        populationButton.setImageResource(
+            when {
+                pin.populationDensity >= 5 -> R.drawable.selected_button_toomany
+                pin.populationDensity >= 4 -> R.drawable.selected_button_many
+                pin.populationDensity >= 3 -> R.drawable.selected_button_middle
+                pin.populationDensity >= 2 -> R.drawable.selected_button_clear
+                else -> R.drawable.selected_button_veryclear
+            }
+        )
+
+        val emotionButton = dialogView.findViewById<ImageButton>(R.id.emotionPinButton)
+        emotionButton.setImageResource(
+            when{
+                pin.emotion >= 5 -> R.drawable.selected_button_scared
+                pin.emotion >= 4 -> R.drawable.selected_button_bad
+                pin.emotion >= 3 -> R.drawable.selected_button_neutral
+                pin.emotion >= 2 -> R.drawable.selected_button_good
+                else -> R.drawable.selected_button_verygood
+            }
+        )
+
+
+        // likeButton click event
+        val likeButton = dialogView.findViewById<ImageButton>(R.id.likeButton)
+        val likeCountText = dialogView.findViewById<TextView>(R.id.likeCountText)
+
+        var likeCount = 0
+
+        likeCountText.text = likeCount.toString()
+
+        likeButton.setOnClickListener {
+            val currentImageDrawable = likeButton.drawable
+
+            // 'unselected_like_button' -> 'selected_like_button'
+            if (currentImageDrawable.constantState == resources.getDrawable(R.drawable.unselected_button_pin_like).constantState) {
+                likeButton.setImageResource(R.drawable.selected_button_pin_like)
+                likeCount++ // 좋아요 수 증가
+            }
+            // 'selected_like_button'-> 'unselected_like_button'
+            else if (currentImageDrawable.constantState == resources.getDrawable(R.drawable.selected_button_pin_like).constantState) {
+                likeButton.setImageResource(R.drawable.unselected_button_pin_like)
+                if (likeCount > 0) {
+                    likeCount--
+                }
+            }
+
+            // update likeButton
+            likeCountText.text = likeCount.toString()
+        }
+
+
+
     }
 }
