@@ -2,12 +2,9 @@ package com.example.pinple_aos
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager2.widget.ViewPager2
 import com.example.pinple_aos.databinding.ActivityLandingBinding
-import com.kakao.sdk.common.util.Utility
 
 
 class LandingActivity: AppCompatActivity() {

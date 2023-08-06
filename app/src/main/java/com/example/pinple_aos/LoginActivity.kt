@@ -1,8 +1,6 @@
 package com.example.pinple_aos
 
 import android.app.Activity
-import android.app.Application
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -13,17 +11,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.kakao.sdk.auth.model.OAuthToken
-import com.kakao.sdk.common.KakaoSdk
+
 import com.kakao.sdk.user.UserApiClient
 
-class MyApplication : Application() {
-    override fun onCreate() {
-        super.onCreate()
-        KakaoSdk.init(this, "a85a328d0b6714f24de2203795161478")
-    }
-}
 
 class LoginActivity : AppCompatActivity() {
+
+
 
     private fun moveToAnotherPage() {
         val intent = Intent(this, SettingNameActivity::class.java)
@@ -31,23 +25,29 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+
+
     private val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             // 카카오톡 로그인 실패 또는 카카오톡 미설치
             UserApiClient.instance.loginWithKakaoAccount(this, callback = kakaoAccountLoginCallback)
         } else if (token != null) {
             // 카카오톡 로그인 성공
-            // 추가 작업 수행
+            val app = application as GlobalApplication
+            app.kakaolgoin = 1
             moveToAnotherPage()
+
         }
     }
+
     private val kakaoAccountLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             // 카카오 계정 로그인 실패
             Toast.makeText(this, "로그인 실패: ${error.message}", Toast.LENGTH_SHORT).show()
         } else if (token != null) {
             // 카카오 계정 로그인 성공
-            // 추가 작업 수행
+            val app = application as GlobalApplication
+            app.kakaolgoin = 1
             moveToAnotherPage()
         }
     }
@@ -75,7 +75,6 @@ class LoginActivity : AppCompatActivity() {
         googleLoginButton.setOnClickListener {
             signInWithGoogle()
         }
-
     }
 
     private fun signInWithGoogle() {
@@ -93,15 +92,12 @@ class LoginActivity : AppCompatActivity() {
         try {
             val account = task.getResult(ApiException::class.java)
             // 구글 로그인 성공
-            // 추가 작업 수행
+            val app = application as GlobalApplication
+            app.googlelogin = 1
             moveToAnotherPage()
         } catch (e: ApiException) {
             // 구글 로그인 실패
             Toast.makeText(this, "구글 로그인 실패", Toast.LENGTH_SHORT).show()
         }
-
-
-
-
     }
 }
