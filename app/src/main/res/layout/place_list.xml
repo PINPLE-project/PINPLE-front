@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    android:background="@color/color_background">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_2"
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/iv_tiny_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="6dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_place"
+        app:srcCompat="@drawable/icon_address_tiny_acacac" />
+
+    <TextView
+        android:id="@+id/tv_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:text="서울 용산구 이촌로72길 62"
+        android:textColor="@color/color_gray_dark"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_tiny_address"
+        app:layout_constraintStart_toEndOf="@+id/iv_tiny_address"
+        app:layout_constraintTop_toTopOf="@+id/iv_tiny_address" />
+
+    <TextView
+        android:id="@+id/tv_place"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/pretendard_regular"
+        android:text="이촌한강공원"
+        android:textColor="@color/color_main_text"
+        app:layout_constraintStart_toStartOf="@+id/cl_2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tv_state"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="12dp"
+        android:fontFamily="@font/pretendard_bold"
+        android:text="보통"
+        android:textColor="@color/color_status_toomany"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/cl_2"
+        app:layout_constraintEnd_toStartOf="@+id/cl_color"
+        app:layout_constraintTop_toTopOf="@+id/cl_2" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cl_color"
+        android:layout_width="20dp"
+        android:layout_height="76dp"
+        android:background="@color/color_status_toomany"
+        app:layout_constraintBottom_toBottomOf="@+id/cl_2"
+        app:layout_constraintEnd_toEndOf="@id/cl_2"
+        app:layout_constraintTop_toTopOf="@id/cl_2">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
