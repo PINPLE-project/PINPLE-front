@@ -1,0 +1,530 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bottom_sheet_background"
+        tools:context=".MainFragment">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <LinearLayout
+                    android:id="@+id/tabLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="4dp"
+                        android:layout_weight="1" />
+
+                    <View
+                        android:layout_width="20dp"
+                        android:layout_height="4dp"
+                        android:background="@drawable/bottom_sheet_bar" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="4dp"
+                        android:layout_weight="1" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp">
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/textView9"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/pretendard_bold"
+                                android:text="반포한강공원"
+                                android:textAppearance="@style/h3_20_bold"
+                                android:textColor="@color/color_main_text" />
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/placeCategoryText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:background="@drawable/place_category_background"
+                                    android:fontFamily="@font/pretendard_bold"
+                                    android:gravity="center_vertical"
+                                    android:paddingHorizontal="16dp"
+                                    android:paddingVertical="4dp"
+                                    android:text="공원"
+                                    android:textAlignment="center"
+                                    android:textAppearance="@style/b5_12_bold"
+                                    android:textColor="@color/white" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linearLayout6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
+
+                            <ImageView
+                                android:id="@+id/imageView12"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                app:srcCompat="@drawable/icon_address_tiny_acacac" />
+
+                            <TextView
+                                android:id="@+id/textView10"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/pretendard_regular"
+                                android:text="서울 서초구 신반포로11길 40"
+                                android:textColor="@color/color_gray3"
+                                app:titleTextAppearance="@style/b6_12_reg" />
+
+                        </LinearLayout>
+
+                        <ImageView
+                            android:id="@+id/populationImage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="25dp"
+                            android:background="@android:color/transparent"
+                            android:padding="0dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
+                            app:srcCompat="@drawable/img_illust_toomany" />
+
+                        <ImageButton
+                            android:id="@+id/detailedPopulationButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:background="@android:color/transparent"
+                            android:padding="0dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/populationImage"
+                            app:srcCompat="@drawable/info_population_toomany" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    <ImageButton
+                        android:id="@+id/contentReportButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/up_btn_content_report" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/reportView"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp" >
+
+                        <TextView
+                            android:id="@+id/reportTitleText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/pretendard_regular"
+                            android:text="향후 12시간 전망"
+                            android:textColor="@color/color_main_text"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:titleTextAppearance="@style/b4_14_reg" />
+
+
+                        <View
+                            android:id="@+id/view2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="64dp"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/detailed_place_report_background"
+                            android:backgroundTint="@color/light_bg_middle"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/reportTitleText" />
+
+                        <ImageView
+                            android:id="@+id/imageView17"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/view2"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/view2"
+                            app:srcCompat="@drawable/icon_max_population" />
+
+                        <View
+                            android:id="@+id/view3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="64dp"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/detailed_place_report_background"
+                            android:backgroundTint="@color/color_background"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view2" />
+
+                        <ImageView
+                            android:id="@+id/imageView18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/view3"
+                            app:layout_constraintStart_toStartOf="@+id/view3"
+                            app:layout_constraintTop_toTopOf="@+id/view3"
+                            app:srcCompat="@drawable/icon_time" />
+
+                        <TextView
+                            android:id="@+id/textView13"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="36dp"
+                            android:fontFamily="@font/pretendard_regular"
+                            android:text="지난 12시간 추이"
+                            android:textColor="@color/color_main_text"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view3"
+                            app:titleTextAppearance="@style/b4_14_reg" />
+
+                        <View
+                            android:id="@+id/view5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="64dp"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/detailed_place_report_background"
+                            android:backgroundTint="@color/light_bg_toomany"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+                        <ImageView
+                            android:id="@+id/imageView19"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/view5"
+                            app:layout_constraintStart_toStartOf="@+id/view5"
+                            app:layout_constraintTop_toTopOf="@+id/view5"
+                            app:srcCompat="@drawable/icon_max_population" />
+
+                        <View
+                            android:id="@+id/view6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="64dp"
+                            android:layout_marginTop="12dp"
+                            android:background="@drawable/detailed_place_report_background"
+                            android:backgroundTint="@color/color_background"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+                        <ImageView
+                            android:id="@+id/imageView20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="8dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/view6"
+                            app:layout_constraintStart_toStartOf="@+id/view6"
+                            app:layout_constraintTop_toTopOf="@+id/view6"
+                            app:srcCompat="@drawable/icon_time" />
+
+                        <TextView
+                            android:id="@+id/textView14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/pretendard_regular"
+                            android:text="최대 혼잡도 정보"
+                            android:textColor="@color/color_gray_dark"
+                            app:layout_constraintStart_toEndOf="@+id/imageView17"
+                            app:layout_constraintTop_toTopOf="@+id/view2"
+                            app:titleTextAppearance="@style/b6_12_reg" />
+
+                        <TextView
+                            android:id="@+id/textView15"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="보통"
+                            android:textColor="@color/color_status_middle"
+                            app:titleTextAppearance="@style/b1_16_bold"
+                            android:fontFamily="@font/pretendard_bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/view2"
+                            app:layout_constraintStart_toEndOf="@+id/imageView17" />
+
+                        <TextView
+                            android:id="@+id/textView16"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="8dp"
+                            android:text="혼잡도가 가장 높은 시간 (예상)"
+                            android:textColor="@color/color_gray_dark"
+                            app:titleTextAppearance="@style/b6_12_reg"
+                            android:fontFamily="@font/pretendard_regular"
+                            app:layout_constraintStart_toEndOf="@+id/imageView18"
+                            app:layout_constraintTop_toTopOf="@+id/view3" />
+
+                        <TextView
+                            android:id="@+id/textView17"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="13시"
+                            android:textColor="@color/color_main_text"
+                            app:titleTextAppearance="@style/b1_16_bold"
+                            android:fontFamily="@font/pretendard_bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/view3"
+                            app:layout_constraintStart_toEndOf="@+id/imageView18" />
+
+                        <TextView
+                            android:id="@+id/textView18"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="8dp"
+                            app:titleTextAppearance="@style/b6_12_reg"
+                            android:fontFamily="@font/pretendard_regular"
+                            android:text="최대 혼잡도 정보"
+                            android:textColor="@color/color_gray_dark"
+                            app:layout_constraintStart_toEndOf="@+id/imageView19"
+                            app:layout_constraintTop_toTopOf="@+id/view5" />
+
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="혼잡"
+                            android:textColor="@color/color_status_toomany"
+                            app:titleTextAppearance="@style/b1_16_bold"
+                            android:fontFamily="@font/pretendard_bold"
+                            app:layout_constraintBottom_toBottomOf="@+id/view5"
+                            app:layout_constraintStart_toEndOf="@+id/imageView19" />
+
+                        <TextView
+                            android:id="@+id/textView20"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginTop="8dp"
+                            android:text="혼잡도가 가장 높았던 시간"
+                            android:textColor="@color/color_gray_dark"
+                            app:titleTextAppearance="@style/b6_12_reg"
+                            android:fontFamily="@font/pretendard_regular"
+                            app:layout_constraintStart_toEndOf="@+id/imageView20"
+                            app:layout_constraintTop_toTopOf="@+id/view6" />
+
+                        <TextView
+                            android:id="@+id/textView21"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:layout_marginBottom="8dp"
+                            android:text="13시"
+                            android:textColor="@color/color_main_text"
+                            app:titleTextAppearance="@style/b1_16_bold"
+                            android:fontFamily="@font/pretendard_bold"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView20" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view7"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/color_background"/>
+
+                    <ImageButton
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/near_pin_with_caption" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_nearBoard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            tools:listitem="@layout/detailed_place_near_item" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view8"
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/color_background"/>
+
+                    <ImageButton
+                        android:id="@+id/imageButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/recommendation_detailed_view" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/constraintLayout4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/mypage_mypin_background"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:id="@+id/textrecPlace"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="8dp"
+                                android:fontFamily="@font/pretendard_regular"
+                                android:text="장소 키워드"
+                                android:textColor="@color/color_gray_dark"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:titleTextAppearance="@style/b6_12_reg" />
+
+                            <TextView
+                                android:id="@+id/recommendPlaceCategoryText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginStart="12dp"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginEnd="12dp"
+                                android:layout_marginBottom="8dp"
+                                android:background="@drawable/place_category_background"
+                                android:fontFamily="@font/pretendard_bold"
+                                android:gravity="center_vertical"
+                                android:paddingHorizontal="16dp"
+                                android:paddingVertical="4dp"
+                                android:text="공원"
+                                android:textAlignment="center"
+                                android:textAppearance="@style/b5_12_bold"
+                                android:textColor="@color/white"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/textrecPlace"
+                                app:layout_constraintTop_toTopOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_recBoard"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="12dp"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/constraintLayout4"
+                            tools:listitem="@layout/detailed_place_recommend_item" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageButton
+                        android:id="@+id/goListImageButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/link_to_lists" />
+
+                    <ImageButton
+                        android:id="@+id/getReminderButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="200dp"
+                        android:layout_marginBottom="4dp"
+                        android:background="@android:color/transparent"
+                        android:src="@drawable/get_reminder_button" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
