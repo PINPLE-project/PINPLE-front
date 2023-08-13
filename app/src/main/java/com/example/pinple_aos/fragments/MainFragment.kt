@@ -31,6 +31,7 @@ import com.example.pinple_aos.detailedRecommendItem
 import androidx.core.content.ContextCompat
 import android.content.res.ColorStateList
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.app.AppCompatActivity
 
 class MainFragment : Fragment(R.layout.fragment_main), OnMapReadyCallback {
     private var _binding: FragmentMainBinding? = null
@@ -208,6 +209,7 @@ class MainFragment : Fragment(R.layout.fragment_main), OnMapReadyCallback {
             bottomSheetDialog.dismiss()
             showDetailedPlaceBottomSheet(location)
         }
+
     }
 
     // detailed_place_bottom_sheet
