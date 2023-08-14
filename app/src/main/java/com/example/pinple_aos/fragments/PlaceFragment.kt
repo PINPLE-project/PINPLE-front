@@ -5,18 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import androidx.core.content.ContentProviderCompat
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.pinple_aos.R
 import com.example.pinple_aos.databinding.FragmentPlaceBinding
 import com.example.pinple_aos.dto.PlaceAdapter
 import com.example.pinple_aos.entity.Place
 
-/**
- * A simple [Fragment] subclass.
- * Use the [PlaceFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class PlaceFragment : Fragment() {
 
     private var _binding: FragmentPlaceBinding? = null
@@ -42,32 +40,54 @@ class PlaceFragment : Fragment() {
         setupRecyclerView()
         populateRecyclerView()
 
-       //버튼
+        //검색 버튼 클릭 이벤트 처리
+        binding.btnSearch.setOnClickListener {
+            // 버튼 클릭 시 키보드 내리기
+            val inputMethodManager = ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
+            inputMethodManager?.hideSoftInputFromWindow(binding.btnSearch.windowToken, 0)
+
+            // 검색 내용 전달
+            val query = binding.placeSearch.text.toString().trim()
+            adapter.filter.filter(query)
+        }
+        
+        //검색창 엔터 입력 시 검색 버튼 클릭
+        val editText = binding.placeSearch
+        val searchBtn = binding.btnSearch
+        
+        editText.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if(actionId == EditorInfo.IME_ACTION_DONE){
+                searchBtn.performClick() //완료 액션 시 검색 버튼 클릭
+                //키보드 내리기
+                val inputMethodManager = ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
+                inputMethodManager?.hideSoftInputFromWindow(editText.windowToken, 0)
+                true
+            } else {
+                false
+            }
+        }
+
+       //정렬 버튼 클릭 이벤트 처리
         binding.btnHigh.isSelected = true //기본값으로 선택됨
+        adapter.sortByHighState()
+
         binding.btnHigh.setOnClickListener{
             resetButton(binding.btnDic, binding.btnHigh, binding.btnLow) //버튼 초기화
-            toggleButton(binding.btnHigh)
+            binding.btnHigh.isSelected = true
+            adapter.sortByHighState()
         }
         binding.btnLow.setOnClickListener {
             resetButton(binding.btnDic, binding.btnHigh, binding.btnLow) //버튼 초기화
-            toggleButton(binding.btnLow)
+            binding.btnLow.isSelected = true
+            adapter.sortByLowState()
         }
         binding.btnDic.setOnClickListener {
             resetButton(binding.btnDic, binding.btnHigh, binding.btnLow) //버튼 초기화
-            toggleButton(binding.btnDic)
+            binding.btnDic.isSelected = true
+            adapter.sortByName()
         }
-    }
 
-    //토글기능, 버튼 중복선택 방지
-    private fun toggleButton(button: Button){
-        if(button.isSelected){
-            selectedButton = null
-        } else {
-            //선택된 버튼을 해제 후 true로 지정
-            selectedButton?.isSelected = false //null이 아닐때만 실행됨
-            selectedButton = button // 상태를 저장
-            button.isSelected = true //선택 상태
-        }
+
     }
 
     //버튼 초기화 기능
@@ -80,7 +100,7 @@ class PlaceFragment : Fragment() {
     //RecyclerView 어댑터 생성, 연결 등 초기화
     private fun setupRecyclerView() {
         //datalist 받아와서 어댑터로 전달
-        adapter = PlaceAdapter(ArrayList())
+        adapter = PlaceAdapter(ArrayList(), requireContext())
 
         //RecyclerView에 어댑터 연결
         binding.rvPlaceList.layoutManager =

@@ -66,9 +66,14 @@
                 app:layout_constraintBottom_toBottomOf="@+id/place_search_bg"
                 app:layout_constraintEnd_toEndOf="@+id/place_search_bg"
                 app:layout_constraintStart_toStartOf="@+id/place_search_bg"
-                app:layout_constraintTop_toTopOf="@+id/place_search_bg" />
+                app:layout_constraintTop_toTopOf="@+id/place_search_bg"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:singleLine="true"
+                />
 
             <ImageButton
+                android:id="@+id/btn_search"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@android:color/transparent"
