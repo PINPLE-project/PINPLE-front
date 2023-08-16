@@ -112,13 +112,13 @@ class PlaceAdapter(
                 //Log.d("getFilter_filtered", filteredDataList.toString()) //테스트 코드
                 notifyDataSetChanged() // 필터링 결과를 적용하여 RecyclerView 갱신
 
-            //원래 화면으로 돌아왔을때 화면 초기화
-            if(query.isEmpty()){
-                binding.btnLow.isSelected=false //초기화
-                binding.btnDic.isSelected=false //초기화
+                //원래 화면으로 돌아왔을때 화면 초기화
+                if(query.isEmpty()){
+                    binding.btnLow.isSelected=false //초기화
+                    binding.btnDic.isSelected=false //초기화
 
-                binding.btnHigh.isSelected = true //기본값으로 선택됨
-                sortByHighState() // 원래 화면으로 돌아왔을때 높은 순 정렬
+                    binding.btnHigh.isSelected = true //기본값으로 선택됨
+                    sortByHighState() // 원래 화면으로 돌아왔을때 높은 순 정렬
                 }
             }
         }

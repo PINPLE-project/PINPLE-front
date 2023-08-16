@@ -57,7 +57,8 @@ class PlaceFragment : Fragment() {
         editText.setOnEditorActionListener { textView, actionId, keyEvent ->
             if(actionId == EditorInfo.IME_ACTION_DONE){
                 searchBtn.performClick() //완료 액션 시 검색 버튼 클릭
-                //키보드 내리기
+
+                //엔터 입력 시 키보드 내리기
                 val inputMethodManager = ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
                 inputMethodManager?.hideSoftInputFromWindow(editText.windowToken, 0)
                 true
@@ -68,7 +69,7 @@ class PlaceFragment : Fragment() {
 
        //정렬 버튼 클릭 이벤트 처리
         binding.btnHigh.isSelected = true //기본값으로 선택됨
-        adapter.sortByHighState()
+        adapter.sortByHighState() //기본값
 
         binding.btnHigh.setOnClickListener{
             resetButton(binding.btnDic, binding.btnHigh, binding.btnLow) //버튼 초기화
