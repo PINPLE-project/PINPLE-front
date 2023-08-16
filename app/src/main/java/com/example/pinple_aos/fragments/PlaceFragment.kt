@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
-import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pinple_aos.databinding.FragmentPlaceBinding
@@ -20,8 +19,6 @@ class PlaceFragment : Fragment() {
     private var _binding: FragmentPlaceBinding? = null
     private val binding get() = _binding!!
     private lateinit var adapter: PlaceAdapter //Place 어댑터
-
-    private var selectedButton: View? = null //선택된 버튼을 저장
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +39,7 @@ class PlaceFragment : Fragment() {
 
         //검색 버튼 클릭 이벤트 처리
         binding.btnSearch.setOnClickListener {
+
             // 버튼 클릭 시 키보드 내리기
             val inputMethodManager = ContextCompat.getSystemService(requireContext(), InputMethodManager::class.java)
             inputMethodManager?.hideSoftInputFromWindow(binding.btnSearch.windowToken, 0)
@@ -51,10 +49,11 @@ class PlaceFragment : Fragment() {
             adapter.filter.filter(query)
         }
         
-        //검색창 엔터 입력 시 검색 버튼 클릭
+
         val editText = binding.placeSearch
         val searchBtn = binding.btnSearch
-        
+
+        //검색창 엔터 입력 시 검색 버튼 클릭
         editText.setOnEditorActionListener { textView, actionId, keyEvent ->
             if(actionId == EditorInfo.IME_ACTION_DONE){
                 searchBtn.performClick() //완료 액션 시 검색 버튼 클릭
@@ -100,7 +99,7 @@ class PlaceFragment : Fragment() {
     //RecyclerView 어댑터 생성, 연결 등 초기화
     private fun setupRecyclerView() {
         //datalist 받아와서 어댑터로 전달
-        adapter = PlaceAdapter(ArrayList(), requireContext())
+        adapter = PlaceAdapter(ArrayList(), binding)
 
         //RecyclerView에 어댑터 연결
         binding.rvPlaceList.layoutManager =
@@ -112,8 +111,6 @@ class PlaceFragment : Fragment() {
     private fun populateRecyclerView() {
         val placeList = createPlaceList()
         adapter.setData(placeList)
-
-        //state에 따라 color 지정
     }
 
     //datalist 생성

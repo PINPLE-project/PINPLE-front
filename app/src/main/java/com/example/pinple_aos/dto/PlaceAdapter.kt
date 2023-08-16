@@ -1,20 +1,22 @@
 package com.example.pinple_aos.dto
 
-import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pinple_aos.R
+import com.example.pinple_aos.databinding.FragmentPlaceBinding
 import com.example.pinple_aos.databinding.PlaceListBinding
 import com.example.pinple_aos.entity.Place
 
-class PlaceAdapter(private val placeList:ArrayList<Place>, private val context:Context) : RecyclerView.Adapter<PlaceAdapter.MyViewHolder>(), Filterable{
-    private var dataList: List<Place> = emptyList()
+class PlaceAdapter(
+    private val placeList:ArrayList<Place>, private val binding:FragmentPlaceBinding
+    ) : RecyclerView.Adapter<PlaceAdapter.MyViewHolder>(), Filterable{
+    private var dataList: List<Place> = placeList
+
     fun setData(dataList: List<Place>){
         this.dataList = dataList
         notifyDataSetChanged()
@@ -28,43 +30,69 @@ class PlaceAdapter(private val placeList:ArrayList<Place>, private val context:C
 
     //데이터와 viewholder를 바인딩한다.
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val data = dataList[position]
+        val data = if (query.isEmpty()){
+            dataList[position] //검색어 없는 경우
+        } else {
+            filteredDataList[position] //검색어 있는 경우
+        }
         holder.bind(data)
     }
 
     //RecyclerView에서 보여질 item의 총 개수를 반환
     override fun getItemCount(): Int {
-        return dataList.size
+        if(query.isNotEmpty()){
+            return filteredDataList.size //검색어 있는 경우
+        } else{
+            return dataList.size //검색어 없는 경우
+        }
     }
 
     //state 높은 순으로 정렬
     fun sortByHighState(){
-        dataList=dataList.sortedByDescending { it.state }
+        if(query.isEmpty()){
+            dataList=dataList.sortedBy { it.place } //사전순 정렬 후 혼잡도 순 정렬
+            dataList=dataList.sortedByDescending { it.state }
+        } else{
+            filteredDataList=filteredDataList.sortedBy { it.place }
+            filteredDataList=filteredDataList.sortedByDescending { it.state }
+        }
         notifyDataSetChanged()
     }
 
     //state 낮은 순으로 정렬
     fun sortByLowState(){
-        dataList=dataList.sortedBy { it.state }
+        if(query.isEmpty()){
+            dataList=dataList.sortedBy { it.place }
+            dataList=dataList.sortedBy { it.state }
+        } else{
+            filteredDataList=filteredDataList.sortedBy { it.place }
+            filteredDataList=filteredDataList.sortedBy { it.state }
+        }
         notifyDataSetChanged()
     }
 
     //가나다 순으로 정렬
     fun sortByName(){
-        dataList=dataList.sortedBy { it.place }
+        if(query.isEmpty()){
+            dataList=dataList.sortedBy { it.place }
+        } else{
+            filteredDataList=filteredDataList.sortedBy { it.place }
+        }
         notifyDataSetChanged()
     }
 
-    //검색 기능
-    private var originalDataList: List<Place> = placeList //원본 데이터
-    private var filteredDataList: List<Place> = placeList //필터링된 데이터
 
+    //검색 기능
     // getFilter() 오버라이드
+    private var filteredDataList:List<Place> = dataList
+    private var query:String=""
     override fun getFilter(): Filter {
-        Toast.makeText(context, "getfilter 실행", Toast.LENGTH_SHORT).show() //테스트 코드
+        var originalDataList: List<Place> = dataList //원본 데이터
+        //Log.d("getFilter_dataList", dataList.toString()) //테스트 코드
+        //Log.d("getFilter_original", originalDataList.toString()) //테스트 코드
         return object : Filter() {
             override fun performFiltering(constraint: CharSequence?): FilterResults {
-                val query = constraint.toString().trim()
+                query = constraint.toString().trim()
                 val filteredList = if (query.isEmpty()) {
                     originalDataList // 빈 문자열일 경우 원본 데이터 반환
                 } else {
@@ -81,7 +109,17 @@ class PlaceAdapter(private val placeList:ArrayList<Place>, private val context:C
             @Suppress("UNCHECKED_CAST")
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
                 filteredDataList = results?.values as List<Place>
+                //Log.d("getFilter_filtered", filteredDataList.toString()) //테스트 코드
                 notifyDataSetChanged() // 필터링 결과를 적용하여 RecyclerView 갱신
+
+            //원래 화면으로 돌아왔을때 화면 초기화
+            if(query.isEmpty()){
+                binding.btnLow.isSelected=false //초기화
+                binding.btnDic.isSelected=false //초기화
+
+                binding.btnHigh.isSelected = true //기본값으로 선택됨
+                sortByHighState() // 원래 화면으로 돌아왔을때 높은 순 정렬
+                }
             }
         }
     }
