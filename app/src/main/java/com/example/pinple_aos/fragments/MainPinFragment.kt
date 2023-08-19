@@ -1,10 +1,12 @@
 package com.example.pinple_aos.fragments
 
 import android.os.Bundle
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import com.example.pinple_aos.R
@@ -19,6 +21,7 @@ import com.example.pinple_aos.PinData
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.OverlayImage
+import android.text.Editable
 
 class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback {
     private var _binding: FragmentMainPinBinding? = null
@@ -53,6 +56,12 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
                 .addToBackStack(null)
                 .commit()
         }
+
+        // writePinButton를 누를 때 write_pin_bottom_sheet.xml을 보여줌
+        binding.writePinButton.setOnClickListener {
+            showWritePinBottomSheet()
+        }
+
     }
 
     override fun onDestroyView() {
@@ -174,7 +183,7 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
     private fun showBottomSheetDialog(pin: PinData) {
         // BottomSheetDialog 생성
         val dialogView = layoutInflater.inflate(R.layout.main_pin_bottom_sheet, null)
-        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.TransparentBottomSheetDialogTheme)
         bottomSheetDialog.setContentView(dialogView)
 
         // 내용 업데이트
@@ -234,7 +243,232 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
             likeCountText.text = likeCount.toString()
         }
 
-
-
     }
+
+
+    private val bottomSheetDialogs: MutableList<BottomSheetDialog> = mutableListOf()
+
+    private fun showWritePinBottomSheet() {
+        val dialogView = layoutInflater.inflate(R.layout.write_pin_bottom_sheet, null)
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.TransparentBottomSheetDialogTheme)
+        bottomSheetDialog.setContentView(dialogView)
+        bottomSheetDialog.show()
+
+        val unselectPinVeryClearButton =
+            dialogView.findViewById<ImageButton>(R.id.unselectedButtonVeryClear)
+        val unselectPinClearButton =
+            dialogView.findViewById<ImageButton>(R.id.unselectedButtonClear)
+        val unselectPinMiddleButton =
+            dialogView.findViewById<ImageButton>(R.id.unselectedButtonMiddle)
+        val unselectPinManyButton = dialogView.findViewById<ImageButton>(R.id.unselectedButtonMany)
+        val unselectPinTooManyButton =
+            dialogView.findViewById<ImageButton>(R.id.unselectedButtonTooMany)
+
+        val unselectedNextButton = dialogView.findViewById<ImageButton>(R.id.unselectedNextButton)
+
+        val imageButtons = listOf(
+            unselectPinVeryClearButton,
+            unselectPinClearButton,
+            unselectPinMiddleButton,
+            unselectPinManyButton,
+            unselectPinTooManyButton
+        )
+        var selectedButton: ImageButton? = null
+
+        imageButtons.forEach { button ->
+            button.setOnClickListener {
+                if (button == selectedButton) {
+                    // 이미 선택된 버튼을 다시 클릭한 경우 선택 해제
+                    selectedButton = null
+                    button.isSelected = false
+                } else {
+                    // 새로운 버튼 선택
+                    selectedButton?.isSelected = false
+                    selectedButton = button
+                    button.isSelected = true
+                }
+
+                // 이미지 변경
+                imageButtons.forEach { btn ->
+                    val newImageResource = if (btn.isSelected) {
+                        when (btn) {
+                            unselectPinVeryClearButton -> R.drawable.selected_button_veryclear
+                            unselectPinClearButton -> R.drawable.selected_button_clear
+                            unselectPinMiddleButton -> R.drawable.selected_button_middle
+                            unselectPinManyButton -> R.drawable.selected_button_many
+                            unselectPinTooManyButton -> R.drawable.selected_button_toomany
+                            else -> R.drawable.unselected_button_veryclear
+                        }
+                    } else {
+                        when (btn) {
+                            unselectPinVeryClearButton -> R.drawable.unselected_button_veryclear
+                            unselectPinClearButton -> R.drawable.unselected_button_clear
+                            unselectPinMiddleButton -> R.drawable.unselected_button_middle
+                            unselectPinManyButton -> R.drawable.unselected_button_many
+                            unselectPinTooManyButton -> R.drawable.unselected_button_toomany
+                            else -> R.drawable.unselected_button_veryclear
+                        }
+                    }
+                    btn.setImageResource(newImageResource)
+
+                    if (selectedButton == null) {
+                        // unselected_next_button 이미지를 원래대로 변경하는 로직
+                        unselectedNextButton.setImageResource(R.drawable.unselected_next_button)
+                        unselectedNextButton.setOnClickListener(null) // 선택된 버튼이 없을 때 클릭 이벤트 해제
+                    } else {
+                        // unselected_next_button 이미지를 button_next로 변경하는 로직
+                        unselectedNextButton.setImageResource(R.drawable.button_next)
+                        unselectedNextButton.setOnClickListener {
+                            showStep2BottomSheet()
+                        }
+                    }
+                }
+            }
+        }
+        bottomSheetDialogs.add(bottomSheetDialog)
+    }
+
+    private fun showStep2BottomSheet() {
+        val dialogView = layoutInflater.inflate(R.layout.write_pin_step2_bottom_sheet, null)
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.TransparentBottomSheetDialogTheme)
+        bottomSheetDialog.setContentView(dialogView)
+        bottomSheetDialog.show()
+
+        val unselectPinVeryGoodButton =
+            dialogView.findViewById<ImageButton>(R.id.unselectedButtonVeryGood)
+        val unselectPinGoodButton =
+            dialogView.findViewById<ImageButton>(R.id.unselectedButtonGood)
+        val unselectPinNeutralButton =
+            dialogView.findViewById<ImageButton>(R.id.unselectedButtonNeutral)
+        val unselectPinBadButton = dialogView.findViewById<ImageButton>(R.id.unselectedButtonBad)
+        val unselectPinScaredButton =
+            dialogView.findViewById<ImageButton>(R.id.unselectedButtonScared)
+
+        val unselectedNextButton = dialogView.findViewById<ImageButton>(R.id.unselectedNextButton)
+
+        val imageButtons = listOf(
+            unselectPinVeryGoodButton,
+            unselectPinGoodButton,
+            unselectPinNeutralButton,
+            unselectPinBadButton,
+            unselectPinScaredButton
+        )
+        var selectedButton: ImageButton? = null
+
+        imageButtons.forEach { button ->
+            button.setOnClickListener {
+                if (button == selectedButton) {
+                    // 이미 선택된 버튼을 다시 클릭한 경우 선택 해제
+                    selectedButton = null
+                    button.isSelected = false
+                } else {
+                    // 새로운 버튼 선택
+                    selectedButton?.isSelected = false
+                    selectedButton = button
+                    button.isSelected = true
+                }
+
+                // 이미지 변경
+                imageButtons.forEach { btn ->
+                    val newImageResource = if (btn.isSelected) {
+                        when (btn) {
+                            unselectPinVeryGoodButton -> R.drawable.selected_button_verygood
+                            unselectPinGoodButton -> R.drawable.selected_button_good
+                            unselectPinNeutralButton -> R.drawable.selected_button_neutral
+                            unselectPinBadButton -> R.drawable.selected_button_bad
+                            unselectPinScaredButton -> R.drawable.selected_button_scared
+                            else -> R.drawable.unselected_button_verygood
+                        }
+                    } else {
+                        when (btn) {
+                            unselectPinVeryGoodButton -> R.drawable.unselected_button_verygood
+                            unselectPinGoodButton -> R.drawable.unselected_button_good
+                            unselectPinNeutralButton -> R.drawable.unselected_button_neutral
+                            unselectPinBadButton -> R.drawable.unselected_button_bad
+                            unselectPinScaredButton -> R.drawable.unselected_button_scared
+                            else -> R.drawable.unselected_button_verygood
+                        }
+                    }
+                    btn.setImageResource(newImageResource)
+
+                    if (selectedButton == null) {
+                        // unselected_next_button 이미지를 원래대로 변경하는 로직
+                        unselectedNextButton.setImageResource(R.drawable.unselected_next_button)
+                        unselectedNextButton.setOnClickListener(null) // 선택된 버튼이 없을 때 클릭 이벤트 해제
+                    } else {
+                        // unselected_next_button 이미지를 button_next로 변경하는 로직
+                        unselectedNextButton.setImageResource(R.drawable.button_next)
+                        unselectedNextButton.setOnClickListener {
+                            showStep3BottomSheet()
+                        }
+                    }
+                }
+            }
+        }
+        bottomSheetDialogs.add(bottomSheetDialog)
+    }
+
+    private fun showStep3BottomSheet(){
+        val dialogView = layoutInflater.inflate(R.layout.write_pin_step3_bottom_sheet, null)
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.TransparentBottomSheetDialogTheme)
+        bottomSheetDialog.setContentView(dialogView)
+        bottomSheetDialog.show()
+
+        val editText = dialogView.findViewById<EditText>(R.id.pinEditTextView)
+        val textCounter = dialogView.findViewById<TextView>(R.id.textCounterText)
+
+
+        editText.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                textCounter.text = "0 / 200자"
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                var userinput = editText.text.toString()
+                textCounter.text = userinput.length.toString() + " / 200자"
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                var userinput = editText.text.toString()
+                textCounter.text = userinput.length.toString() + " / 200자"
+            }
+        })
+
+        val doneWritePinButton = dialogView.findViewById<ImageButton>(R.id.doneWritePinButton)
+
+        doneWritePinButton.setOnClickListener {
+            showCautionBottomSheet()
+        }
+
+        bottomSheetDialogs.add(bottomSheetDialog)
+    }
+
+    private fun showCautionBottomSheet() {
+        val dialogView = layoutInflater.inflate(R.layout.write_pin_caution_bottom_sheet, null)
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.cautionBottomSheetDialogTheme)
+        bottomSheetDialog.setContentView(dialogView)
+        bottomSheetDialog.show()
+
+        val checkButton = dialogView.findViewById<ImageButton>(R.id.pinCheckButton)
+        val uploadButton = dialogView.findViewById<ImageButton>(R.id.pinUploadButton)
+
+
+        checkButton.setOnClickListener {
+            bottomSheetDialog.dismiss()
+        }
+
+        uploadButton.setOnClickListener {
+            bottomSheetDialog.dismiss()
+
+            bottomSheetDialogs.forEach { it.dismiss() }
+            bottomSheetDialogs.clear()
+        }
+    }
+
+
+
+
+
+
+
 }

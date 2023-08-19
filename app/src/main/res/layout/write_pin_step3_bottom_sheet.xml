@@ -1,0 +1,141 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="524dp"
+        android:background="@drawable/bottom_sheet_background"
+        tools:context=".fragments.MainPinFragment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/indicatorImageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="141dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="142dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/pin_indicator_step3" />
+
+                <TextView
+                    android:id="@+id/pinStepTextView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="28dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:text="@string/pin_step3_text"
+                    android:textAppearance="@style/b6_12_reg"
+                    android:textColor="@color/color_gray3"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/indicatorImageView" />
+
+                <TextView
+                    android:id="@+id/pinStepTextView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="clip_horizontal"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="@font/pretendard_medium"
+                    android:gravity="center"
+                    android:text="@string/pin_step3_text2"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/h4_20_reg"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pinStepTextView1" />
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="20dp"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/pinStepTextView2">
+
+                    <EditText
+                        android:id="@+id/pinEditTextView"
+                        android:layout_width="match_parent"
+                        android:layout_height="224dp"
+                        android:background="@drawable/pin_step3_text_box_background"
+                        android:fontFamily="@font/pretendard_regular"
+                        android:gravity="top"
+                        android:hint="상세 내용을 입력해주세요."
+                        android:maxLength="200"
+                        android:padding="12dp"
+                        android:textAppearance="@style/b6_12_reg"
+                        android:textColorHint="@color/color_gray3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/textCounterText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="12dp"
+                        android:layout_marginBottom="12dp"
+                        android:text="0 / 200자"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        android:textAppearance="@style/b6_12_reg"
+                        android:textColor="@color/color_gray3" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/step3GuideText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginEnd="20dp"
+                    android:text="@string/pin_step3_guide_text"
+                    android:fontFamily="@font/pretendard_regular"
+                    android:textAppearance="@style/b6_12_reg"
+                    android:textColor="#AFAFAF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout7" />
+
+                <ImageButton
+                    android:id="@+id/doneWritePinButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/done_write_pin_button"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/step3GuideText" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

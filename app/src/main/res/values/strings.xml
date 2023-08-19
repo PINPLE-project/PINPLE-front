@@ -25,4 +25,14 @@
     <string name="setting_name_1">어서오세요! \n어떻게 불러드릴까요?</string>
     <string name="edit_text">10자 내로 닉네임을 입력해주세요.</string>
     <string name="setting_name">닉네임을 설정해주세요!\n닉네임은 핀, 댓글 작성에 사용되며 추후 변경할 수 없어요.</string>
+
+    <string name="pin_step1_text">STEP1 체감 혼잡도 선택하기</string>
+    <string name="pin_step1_text2">현재 위치에서 사람이 \n어느정도로 많이 있나요?</string>
+    <string name="pin_step2_text">STEP2 감정 공유하기</string>
+    <string name="pin_step2_text2">지금 혼잡도에 대해 \n어떤 감정이신가요?</string>
+    <string name="pin_step3_text">STEP3 상세하게 핀 작성하기</string>
+    <string name="pin_step3_text2">더 공유하고 싶은 \n상황이 있나요?</string>
+    <string name="pin_step3_guide_text">작성된 핀은 신뢰도를 위해 6시간 후 지도에서 사라져요</string>
+    <string name="pin_caution_text1">핀 작성시 주의사항</string>
+    <string name="pin_caution_text2">부적절한 내용의 핀을 게재하시면 서비스 이용이 정지됩니다.</string>
 </resources>
