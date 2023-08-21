@@ -22,6 +22,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.OverlayImage
 import android.text.Editable
+import androidx.core.content.res.ResourcesCompat
+import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
+
 
 class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback {
     private var _binding: FragmentMainPinBinding? = null
@@ -29,12 +33,14 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
 
     private var myNaverMap: NaverMap? = null
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainPinBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -60,9 +66,21 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
         // writePinButton를 누를 때 write_pin_bottom_sheet.xml을 보여줌
         binding.writePinButton.setOnClickListener {
             showWritePinBottomSheet()
+            bottomSheetIsVisible = true
+
+            if (bottomSheetIsVisible) { // bottomSheet가 보이는 경우
+                binding.pinViewButton.visibility = View.INVISIBLE
+                binding.currentLocationView.visibility = View.VISIBLE
+            } else { // bottomSheet가 보이지 않는 경우
+                binding.pinViewButton.visibility = View.VISIBLE
+                binding.currentLocationView.visibility = View.INVISIBLE
+            }
+
+            val pinIcon = ResourcesCompat.getDrawable(resources, R.drawable.icon_user_location, null)
         }
 
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -180,11 +198,13 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
         }
     }
 
+
     private fun showBottomSheetDialog(pin: PinData) {
         // BottomSheetDialog 생성
         val dialogView = layoutInflater.inflate(R.layout.main_pin_bottom_sheet, null)
         val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.TransparentBottomSheetDialogTheme)
         bottomSheetDialog.setContentView(dialogView)
+        bottomSheetIsVisible = true
 
         // 내용 업데이트
         dialogView.findViewById<TextView>(R.id.titlePlaceText)?.text = pin.address
@@ -245,8 +265,16 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
 
     }
 
+    // 바텀시트가 사라졌을 때 호출되는 함수
+    private fun onBottomSheetDismissed() {
+        bottomSheetIsVisible = false
+        binding.pinViewButton.visibility = View.VISIBLE
+        binding.currentLocationView.visibility = View.INVISIBLE
+    }
+
 
     private val bottomSheetDialogs: MutableList<BottomSheetDialog> = mutableListOf()
+    private var bottomSheetIsVisible = false
 
     private fun showWritePinBottomSheet() {
         val dialogView = layoutInflater.inflate(R.layout.write_pin_bottom_sheet, null)
@@ -320,11 +348,23 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
                         unselectedNextButton.setImageResource(R.drawable.button_next)
                         unselectedNextButton.setOnClickListener {
                             showStep2BottomSheet()
+                            bottomSheetIsVisible = true
+
+                            if (!bottomSheetIsVisible) {
+                                binding.pinViewButton.visibility = View.INVISIBLE
+                                binding.currentLocationView.visibility = View.VISIBLE
+                            }
                         }
                     }
                 }
             }
         }
+
+        // 바텀시트가 사라질 때
+        bottomSheetDialog.setOnDismissListener {
+            onBottomSheetDismissed()
+        }
+
         bottomSheetDialogs.add(bottomSheetDialog)
     }
 
@@ -400,6 +440,12 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
                         unselectedNextButton.setImageResource(R.drawable.button_next)
                         unselectedNextButton.setOnClickListener {
                             showStep3BottomSheet()
+                            bottomSheetIsVisible = true
+
+                            if (!bottomSheetIsVisible) {
+                                binding.pinViewButton.visibility = View.INVISIBLE
+                                binding.currentLocationView.visibility = View.VISIBLE
+                            }
                         }
                     }
                 }
@@ -438,6 +484,12 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
 
         doneWritePinButton.setOnClickListener {
             showCautionBottomSheet()
+            bottomSheetIsVisible = true
+
+            if (!bottomSheetIsVisible) {
+                binding.pinViewButton.visibility = View.INVISIBLE
+                binding.currentLocationView.visibility = View.VISIBLE
+            }
         }
 
         bottomSheetDialogs.add(bottomSheetDialog)
@@ -448,22 +500,38 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
         val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.cautionBottomSheetDialogTheme)
         bottomSheetDialog.setContentView(dialogView)
         bottomSheetDialog.show()
+        bottomSheetIsVisible = true
 
         val checkButton = dialogView.findViewById<ImageButton>(R.id.pinCheckButton)
         val uploadButton = dialogView.findViewById<ImageButton>(R.id.pinUploadButton)
 
-
         checkButton.setOnClickListener {
             bottomSheetDialog.dismiss()
+            bottomSheetIsVisible = true
+
+            if (!bottomSheetIsVisible) {
+                binding.pinViewButton.visibility = View.INVISIBLE
+                binding.currentLocationView.visibility = View.VISIBLE
+            }
         }
 
         uploadButton.setOnClickListener {
             bottomSheetDialog.dismiss()
+            bottomSheetIsVisible = false
+
+
+            if (!bottomSheetIsVisible) {
+                binding.pinViewButton.visibility = View.VISIBLE
+                binding.currentLocationView.visibility = View.INVISIBLE
+            }
 
             bottomSheetDialogs.forEach { it.dismiss() }
             bottomSheetDialogs.clear()
         }
     }
+
+
+
 
 
 
