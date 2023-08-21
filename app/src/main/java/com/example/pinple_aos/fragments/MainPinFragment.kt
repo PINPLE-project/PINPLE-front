@@ -34,6 +34,7 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
     private var myNaverMap: NaverMap? = null
 
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -63,10 +64,12 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
                 .commit()
         }
 
-        // writePinButton를 누를 때 write_pin_bottom_sheet.xml을 보여줌
+        // writePinButton를 누를 때 write_pin_bottom_sheet.xml
         binding.writePinButton.setOnClickListener {
             showWritePinBottomSheet()
             bottomSheetIsVisible = true
+
+            val naverMap = myNaverMap
 
             if (bottomSheetIsVisible) { // bottomSheet가 보이는 경우
                 binding.pinViewButton.visibility = View.INVISIBLE
@@ -76,7 +79,14 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
                 binding.currentLocationView.visibility = View.INVISIBLE
             }
 
-            val pinIcon = ResourcesCompat.getDrawable(resources, R.drawable.icon_user_location, null)
+            val pinIcon = R.drawable.icon_user_location
+
+            // current location 내용 업데이트
+            // val currentView = layoutInflater.inflate(R.layout.write_pin_current_location, null)
+            // currentView.findViewById<TextView>(R.id.locationTextView)?.text = 
+
+
+
         }
 
     }
