@@ -20,15 +20,9 @@
         android:theme="@style/Theme.PINPLE_AOS"
         tools:targetApi="31">
 
-
-
-
         <activity
             android:name=".PreferenceActivity"
             android:exported="true" />
-
-
-
 
         <activity
             android:name=".ProfileActivity"

@@ -25,8 +25,6 @@ class LoginActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-
-
     private val kakaoLoginCallback: (OAuthToken?, Throwable?) -> Unit = { token, error ->
         if (error != null) {
             // 카카오톡 로그인 실패 또는 카카오톡 미설치
@@ -51,6 +49,7 @@ class LoginActivity : AppCompatActivity() {
             moveToAnotherPage()
         }
     }
+
 
     private val googleSignInLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
@@ -95,6 +94,7 @@ class LoginActivity : AppCompatActivity() {
             val app = application as GlobalApplication
             app.googlelogin = 1
             moveToAnotherPage()
+
         } catch (e: ApiException) {
             // 구글 로그인 실패
             Toast.makeText(this, "구글 로그인 실패", Toast.LENGTH_SHORT).show()
