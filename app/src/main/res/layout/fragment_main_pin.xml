@@ -115,7 +115,7 @@
                             android:layout_marginTop="12dp"
                             android:layout_marginBottom="12dp"
                             android:fontFamily="@font/pretendard_regular"
-                            android:text="서울 서초구 잠원동 122-1"
+                            android:text=""
                             android:textAppearance="@style/b6_12_reg"
                             android:textColor="@color/white"
                             app:layout_constraintBottom_toBottomOf="parent"
