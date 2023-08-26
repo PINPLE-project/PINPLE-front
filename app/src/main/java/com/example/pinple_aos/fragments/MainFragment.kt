@@ -28,10 +28,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.pinple_aos.NearPlaceItem
 import com.example.pinple_aos.detailedRecommendAdapter
 import com.example.pinple_aos.detailedRecommendItem
-import androidx.core.content.ContextCompat
-import android.content.res.ColorStateList
+import android.graphics.PointF
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.appcompat.app.AppCompatActivity
 
 class MainFragment : Fragment(R.layout.fragment_main), OnMapReadyCallback {
     private var _binding: FragmentMainBinding? = null
@@ -60,7 +58,7 @@ class MainFragment : Fragment(R.layout.fragment_main), OnMapReadyCallback {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as MapFragment?
         mapFragment?.getMapAsync(this)
 
-        // 데이터뷰 버튼 클릭 시 이벤트 처리
+        // dataViewButton click event
         binding.dataViewButton.setOnClickListener {
             val mainPinFragment = MainPinFragment()
             parentFragmentManager.beginTransaction()
@@ -87,7 +85,7 @@ class MainFragment : Fragment(R.layout.fragment_main), OnMapReadyCallback {
         val cameraUpdate = CameraUpdate.zoomTo(15.0)
         myNaverMap?.moveCamera(cameraUpdate)
 
-        val cameraUpdate2 = CameraUpdate.scrollTo(marker.position)
+        val cameraUpdate2 = CameraUpdate.scrollTo(marker.position).pivot(PointF(0.5f, 0.3f))
         myNaverMap?.moveCamera(cameraUpdate2)
     }
 
@@ -160,10 +158,14 @@ class MainFragment : Fragment(R.layout.fragment_main), OnMapReadyCallback {
 
 
     private fun showBottomSheetDialog(location: LocationData) {
+
+        binding.dataViewButton.visibility = View.INVISIBLE
+
         // BottomSheetDialog 생성
         val dialogView = layoutInflater.inflate(R.layout.main_bottom_sheet, null)
-        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.TransparentBottomSheetDialogTheme)
         bottomSheetDialog.setContentView(dialogView)
+        bottomSheetIsVisible = true
 
         // 내용 업데이트
         dialogView.findViewById<TextView>(R.id.textView9)?.text = location.name
@@ -172,9 +174,6 @@ class MainFragment : Fragment(R.layout.fragment_main), OnMapReadyCallback {
 
         bottomSheetDialog.show()
 
-        bottomSheetDialog.setOnDismissListener {
-            circleOverlay?.map = null
-        }
 
         val populationButton = dialogView.findViewById<ImageButton>(R.id.populationButton)
         populationButton.setImageResource(
@@ -203,23 +202,58 @@ class MainFragment : Fragment(R.layout.fragment_main), OnMapReadyCallback {
         circleOverlay?.outlineWidth = 0 // 테두리 두께 설정
         circleOverlay?.map = myNaverMap
 
-        // 추가: ImageButton4를 누를 때 detailed_place_bottom_sheet.xml을 보여줌
+        // markButton click event
+        val markButton = dialogView.findViewById<ImageButton>(R.id.markButton)
+
+        markButton.setOnClickListener {
+            val currentImageDrawable = markButton.drawable
+
+            // 'unselected_markButton' -> 'selected_markButton'
+            if (currentImageDrawable.constantState == resources.getDrawable(R.drawable.icon_bookmark).constantState) {
+                markButton.setImageResource(R.drawable.selected_icon_bookmark)
+            }
+            // 'selected_markButton'-> 'unselected_markButton'
+            else if (currentImageDrawable.constantState == resources.getDrawable(R.drawable.selected_icon_bookmark).constantState) {
+                markButton.setImageResource(R.drawable.icon_bookmark)
+            }
+        }
+
+        // ImageButton4를 누를 때 detailed_place_bottom_sheet.xml을 보여줌
         val detailedPlaceButton = dialogView.findViewById<ImageButton>(R.id.imageButton4)
         detailedPlaceButton.setOnClickListener {
-            bottomSheetDialog.dismiss()
             showDetailedPlaceBottomSheet(location)
+            bottomSheetIsVisible = true
+
+            if (!bottomSheetIsVisible) {
+                binding.dataViewButton.visibility = View.INVISIBLE
+            }
         }
+
+        // 바텀시트가 사라질 때
+        bottomSheetDialog.setOnDismissListener {
+            onBottomSheetDismissed()
+            circleOverlay?.map = null
+        }
+
+        bottomSheetDialogs.add(bottomSheetDialog)
 
     }
 
+    private fun onBottomSheetDismissed() {
+        bottomSheetIsVisible = false
+        binding.dataViewButton.visibility = View.VISIBLE
+    }
+
+    private val bottomSheetDialogs: MutableList<BottomSheetDialog> = mutableListOf()
+    private var bottomSheetIsVisible = false
+
     // detailed_place_bottom_sheet
     private fun showDetailedPlaceBottomSheet(location: LocationData) {
-        // detailed_place_bottom_sheet.xml 파일을 아래와 같이 수정해야 합니다.
-
         // BottomSheetDialog 생성
         val dialogView = layoutInflater.inflate(R.layout.detailed_place_bottom_sheet, null)
-        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val bottomSheetDialog = BottomSheetDialog(requireContext(), R.style.TransparentBottomSheetDialogTheme)
         bottomSheetDialog.setContentView(dialogView)
+        bottomSheetIsVisible = true
 
         // 내용 업데이트
         dialogView.findViewById<TextView>(R.id.textView9)?.text = location.name
@@ -342,6 +376,14 @@ class MainFragment : Fragment(R.layout.fragment_main), OnMapReadyCallback {
                 layout.setVisibility(View.VISIBLE)
                 reportButton.setImageResource(R.drawable.up_btn_content_report)
             }
+        }
+
+        // 바텀시트가 사라질 때
+        bottomSheetDialog.setOnDismissListener {
+            onBottomSheetDismissed()
+
+            bottomSheetDialogs.forEach { it.dismiss() }
+            bottomSheetDialogs.clear()
         }
 
     }

@@ -36,4 +36,5 @@
     <string name="pin_caution_text1">핀 작성시 주의사항</string>
     <string name="pin_caution_text2">부적절한 내용의 핀을 게재하시면 서비스 이용이 정지됩니다.</string>
     <string name="pin_location_text">현재 위치</string>
+    <string name="main_reminder_button_text">알림 설정하기</string>
 </resources>
