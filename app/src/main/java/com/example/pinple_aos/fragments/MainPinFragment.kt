@@ -39,14 +39,13 @@ import java.util.Locale
 
 class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback {
     private var _binding: FragmentMainPinBinding? = null
-    private val binding get() = _binding!!
+    private val binding: FragmentMainPinBinding
+        get() = _binding ?: throw IllegalStateException("Binding is not available when the view is destroyed")
 
     private var myNaverMap: NaverMap? = null
 
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var locationCallback: LocationCallback
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,13 +53,16 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
     ): View {
         _binding = FragmentMainPinBinding.inflate(inflater, container, false)
         return binding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         if (isPermitted()) {
+            fusedLocationProviderClient =
+                LocationServices.getFusedLocationProviderClient(requireActivity())
+             setUpdateLocationListener()
+
             startProcess()
         } else {
             ActivityCompat.requestPermissions(requireActivity(), permissions, permission_request)
@@ -70,6 +72,7 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
         // 네이버 지도 API 키 설정
         NaverMapSdk.getInstance(requireContext()).client =
             NaverMapSdk.NaverCloudPlatformClient("8w319xk099")
+
 
         // 네이버 지도 객체 가져오기
         val mapFragment = childFragmentManager.findFragmentById(R.id.map_fragment) as MapFragment?
@@ -86,103 +89,28 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
 
         // writePinButton를 누를 때 write_pin_bottom_sheet.xml
         binding.writePinButton.setOnClickListener {
+            val marker = Marker()
+            marker.position = LatLng(lastLocation!!.latitude, lastLocation!!.longitude)
+            zoomInToMarker(marker)
+
             showWritePinBottomSheet()
             bottomSheetIsVisible = true
 
+            setLocationText(Location(""))
 
             if (bottomSheetIsVisible) { // bottomSheet가 보이는 경우
                 binding.pinViewButton.visibility = View.INVISIBLE
                 binding.currentLocationView.visibility = View.VISIBLE
-
-                this.myNaverMap = myNaverMap
-
-                fusedLocationProviderClient =
-                    LocationServices.getFusedLocationProviderClient(requireActivity()) //gps 자동으로 받아오기
-                setUpdateLocationListener() //내위치를 가져오는 코드
-
 
             } else { // bottomSheet가 보이지 않는 경우
                 binding.pinViewButton.visibility = View.VISIBLE
                 binding.currentLocationView.visibility = View.INVISIBLE
             }
         }
-
     }
 
-    val permissions = arrayOf(
-        android.Manifest.permission.ACCESS_FINE_LOCATION
-    )
 
-
-    private val permission_request = 123 // Use any unique request code you prefer
-
-
-
-    fun isPermitted(): Boolean {
-        for (perm in permissions) {
-            if (ContextCompat.checkSelfPermission(requireContext(), perm) != PackageManager.PERMISSION_GRANTED) {
-                return false
-            }
-        }
-        return true
-    }
-
-    fun startProcess(){
-        val fm = activity?.supportFragmentManager
-        val mapFragment = fm?.findFragmentById(R.id.map_fragment) as MapFragment?
-            ?: MapFragment.newInstance().also {
-                fm?.beginTransaction()?.add(R.id.map_fragment, it)?.commit()
-            } //권한
-        mapFragment.getMapAsync(this)
-    } //권한이 있다면 onMapReady연결
-
-
-    private fun setUpdateLocationListener() {
-        val locationRequest = LocationRequest.create()
-        locationRequest.run {
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY //높은 정확도
-            interval = 1000 //1초에 한번씩 GPS 요청
-        }
-
-        locationCallback = object : LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
-                locationResult ?: return
-                for ((i, location) in locationResult.locations.withIndex()) {
-                    Log.d("location: ", "${location.latitude}, ${location.longitude}")
-                    setLastLocation(location)
-                }
-            }
-        }
-
-        try {
-            fusedLocationProviderClient.requestLocationUpdates(
-                locationRequest,
-                locationCallback,
-                Looper.myLooper()
-            )
-        } catch (securityException: SecurityException) {
-            // Handle security exception
-            // ex.  request permission again or show error message
-        }
-    }
-
-    fun setLastLocation(location: Location) {
-        val marker = Marker()
-        val pinIcon = R.drawable.icon_user_location
-        val overlayImage = OverlayImage.fromResource(pinIcon)
-
-        marker.position = LatLng(location.latitude, location.longitude)
-        marker.icon = overlayImage
-
-        myNaverMap?.let {
-            marker.map = it
-            val cameraUpdate = CameraUpdate.zoomTo(15.0)
-            it.moveCamera(cameraUpdate)
-
-            val cameraUpdate2 = CameraUpdate.scrollTo(marker.position).pivot(PointF(0.5f, 0.25f))
-            it.moveCamera(cameraUpdate2)
-        }
-
+    fun setLocationText(location: Location) {
         // update current location text
         val geocoder = Geocoder(requireContext(), Locale.KOREA)
         val addressList = geocoder.getFromLocation(location.latitude, location.longitude, 1)
@@ -228,11 +156,32 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
             val locationTextView = binding.currentLocationView.findViewById<TextView>(R.id.locationTextView)
             locationTextView?.text = "주소를 찾을 수 없음"
         }
+
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    val permissions = arrayOf(
+        android.Manifest.permission.ACCESS_FINE_LOCATION
+    )
+
+    private val permission_request = 123
+
+
+    fun isPermitted(): Boolean {
+        for (perm in permissions) {
+            if (ContextCompat.checkSelfPermission(requireContext(), perm) != PackageManager.PERMISSION_GRANTED) {
+                return false
+            }
+        }
+        return true
+    }
+
+    fun startProcess(){
+        val fm = activity?.supportFragmentManager
+        val mapFragment = fm?.findFragmentById(R.id.map_fragment) as MapFragment?
+            ?: MapFragment.newInstance().also {
+                fm?.beginTransaction()?.add(R.id.map_fragment, it)?.commit()
+            }
+        mapFragment.getMapAsync(this)
     }
 
     override fun onMapReady(naverMap: NaverMap) {
@@ -241,6 +190,58 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
 
         // 마커 추가
         addMarkers()
+
+        lastLocation?.let { setLastLocation(it) }
+
+    }
+
+    private var lastLocation: Location? = null
+
+    private fun setUpdateLocationListener() {
+        val locationRequest = LocationRequest.create()
+        locationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+        locationRequest.interval = 1000
+
+        locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                locationResult ?: return
+                for (location in locationResult.locations) {
+                    Log.d("location: ", "${location.latitude}, ${location.longitude}")
+                    setLastLocation(location) // 최신 위치 정보를 저장
+
+                    // _binding이 초기화되어 있는 경우에만 setLocationText 호출
+                    if (_binding != null) {
+                        setLocationText(location) // 위치 정보를 표시하는 함수 호출
+                    }
+                }
+            }
+        }
+
+        try {
+            fusedLocationProviderClient.requestLocationUpdates(
+                locationRequest,
+                locationCallback,
+                Looper.myLooper()
+            )
+        } catch (securityException: SecurityException) {
+            // Handle security exception
+            // ex. request permission again or show error message
+        }
+    }
+
+    fun setLastLocation(location: Location) {
+        lastLocation = location
+
+        val marker = Marker()
+        marker.icon = OverlayImage.fromResource(R.drawable.icon_user_location)
+        marker.position = LatLng(location.latitude, location.longitude)
+
+        marker.map = myNaverMap
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun zoomInToMarker(marker: Marker) {
@@ -249,7 +250,9 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
 
         val cameraUpdate2 = CameraUpdate.scrollTo(marker.position) .pivot(PointF(0.5f, 0.25f))
         myNaverMap?.moveCamera(cameraUpdate2)
+
     }
+
 
     private fun addMarkers() {
         val markerLocations = arrayListOf(
@@ -331,11 +334,6 @@ class MainPinFragment : Fragment(R.layout.fragment_main_pin), OnMapReadyCallback
             marker.icon = overlayImage
             marker.map = myNaverMap
 
-            // 마커 클릭 리스너 설정
-            marker.setOnClickListener {
-                showBottomSheetDialog(location)
-                true
-            }
 
             marker.setOnClickListener {
                 showBottomSheetDialog(location)
