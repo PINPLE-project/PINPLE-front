@@ -1,3 +1,9 @@
 package com.example.pinple_aos
 
-data class ReminderItem(val title: String, val dateTime: String)
+import com.example.pinple_aos.Retrofit2.NotificationItem
+
+data class ReminderItem(val AREA_NM: String, val time: String)
+
+fun NotificationItem.toReminderItem(): ReminderItem {
+    return ReminderItem(AREA_NM, time)
+}

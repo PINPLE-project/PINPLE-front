@@ -8,15 +8,19 @@ import android.view.View
 
 class ReminderAdapter(private val itemList: ArrayList<ReminderItem>) :
     RecyclerView.Adapter<ReminderAdapter.ReminderViewHolder>() {
-
+    fun updateItems(newItemList: List<ReminderItem>) {
+        itemList.clear()
+        itemList.addAll(newItemList)
+        notifyDataSetChanged()
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReminderViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.reminder_list_item, parent,false)
         return ReminderViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ReminderViewHolder, position: Int) {
-        holder.textPlace.text = itemList[position].title
-        holder.textTime.text = itemList[position].dateTime
+        holder.textPlace.text = itemList[position].AREA_NM
+        holder.textTime.text = itemList[position].time
     }
 
     override fun getItemCount(): Int {
