@@ -128,47 +128,64 @@
                         android:padding="0dp"
                         app:srcCompat="@drawable/info_population_toomany" />
 
-                    <LinearLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="30dp"
                         android:layout_marginTop="16dp"
                         android:orientation="horizontal">
 
                         <ImageView
                             android:id="@+id/imageView14"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            app:srcCompat="@drawable/icon_notification" />
-
-                        <TextView
-                            android:id="@+id/textView11"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:layout_weight="1"
+                            android:layout_gravity="center"
+                            android:layout_marginEnd="8dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/textView11"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:srcCompat="@drawable/icon_notification" />
+
+                        <Button
+                            android:id="@+id/textView11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@android:color/transparent"
                             android:fontFamily="@font/pretendard_regular"
-                            android:text="알림 설정하기"
+                            android:gravity="center_vertical"
+                            android:text="@string/main_reminder_button_text"
                             android:textColor="@color/color_main_text"
+                            android:padding="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView14"
+                            app:layout_constraintTop_toTopOf="parent"
                             app:titleTextAppearance="@style/b6_12_reg" />
 
                         <ImageView
                             android:id="@+id/imageView15"
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="12dp"
                             android:layout_weight="1"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/textView11"
+                            app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/line_infoplace" />
 
-                        <ImageView
-                            android:id="@+id/imageView16"
-                            android:layout_width="match_parent"
+                        <ImageButton
+                            android:id="@+id/markButton"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
+                            android:layout_marginStart="12dp"
                             android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView15"
+                            app:layout_constraintTop_toTopOf="parent"
                             app:srcCompat="@drawable/icon_bookmark" />
 
-                    </LinearLayout>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <ImageButton
                         android:id="@+id/imageButton4"
