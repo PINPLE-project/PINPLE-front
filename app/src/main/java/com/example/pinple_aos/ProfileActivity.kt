@@ -1,8 +1,10 @@
 package com.example.pinple_aos
 
 import android.content.Intent
+import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
@@ -10,7 +12,14 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.ImageView
-
+import com.example.pinple_aos.Retrofit2.RetrofitClient
+import com.example.pinple_aos.Retrofit2.UserCreateRequest
+import com.example.pinple_aos.Retrofit2.UserCreateResponse
+import com.example.pinple_aos.Retrofit2.apiInterfaceTori
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import android.content.ContentValues.TAG
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var blueImageView: ImageView
@@ -26,6 +35,9 @@ class ProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+
+        // 닉네임 정보를 인텐트에서 가져오기
+        val nickname = intent.getStringExtra("nickname")!!
 
         activeButton = findViewById(R.id.button_check_activate_)
         nActivtbutton = findViewById(R.id.button_check_disabled)
@@ -126,9 +138,58 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         activeButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            startActivity(intent)
+            // 아래는 서버 배포 후 삭제될 부분
+             val intent = Intent(this, MainActivity::class.java)
+             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+             startActivity(intent)
+            //
+
+            if (isBlueCharacterSelected || isOrangeCharacterSelected) {
+                val selectedCharacter = if (isBlueCharacterSelected) 1 else 2
+
+                // Retrofit API 서비스 객체 생성
+                val apiService = RetrofitClient.getClient()?.create(apiInterfaceTori::class.java)
+
+                // API 요청을 위한 데이터 객체 생성
+                val userCreateRequest = UserCreateRequest(
+                    nickname = nickname, // 닉네임을 사용하여 API 호출
+                    charac = selectedCharacter,
+                    congestionAlarm = 1,
+                    pinAlarm = 1,
+                    deviceToken = "f77sNkhkRtCGXl-xL8XGVr:APA91bE2uL5edqsDwyLOzzIcLmHk9_zQKsZlM1D_L7ubRcRIbEPuzo8yC0TKlZA0Ryj57CD0aqzLHIUwDfpbIEZgFiAmuMoa7GQDOnSmrwtvOYHxXZnxvEdXPcXaJlu-g-E4RX-q6Aw4"
+                )
+
+                // API 호출
+                apiService?.createUser(userCreateRequest)?.enqueue(object : Callback<UserCreateResponse> {
+                    override fun onResponse(call: Call<UserCreateResponse>, response: Response<UserCreateResponse>) {
+                        if (response.isSuccessful) {
+                            val userCreateResponse = response.body()
+                            if (userCreateResponse?.inSuccess == true) {
+                                // 회원가입 성공 처리
+                                // val intent = Intent(this@ProfileActivity, MainActivity::class.java)
+                                // intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                                // startActivity(intent)
+
+                                Log.d(TAG, "API 호출 성공")
+                            } else {
+                                val errorMessage = "회원가입 실패 - 서버 응답 오류"
+                                Log.e(TAG, errorMessage)
+                            }
+                        } else {
+                            val errorMessage = "API 호출 실패 - HTTP 오류: ${response.code()}"
+                            Log.e(TAG, errorMessage)
+                        }
+                    }
+
+                    override fun onFailure(call: Call<UserCreateResponse>, t: Throwable) {
+                        val errorMessage = "네트워크 오류: ${t.message}"
+                        Log.e(TAG, errorMessage)
+                    }
+                })
+            } else {
+                // 사용자가 캐릭터를 선택하지 않은 경우 처리
+                // Handle case where user has not selected a character
+            }
         }
     }
 }

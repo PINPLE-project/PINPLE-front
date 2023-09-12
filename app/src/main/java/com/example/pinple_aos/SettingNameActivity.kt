@@ -41,7 +41,13 @@ class SettingNameActivity : AppCompatActivity() {
         })
 
         firstButton.setOnClickListener {
-            moveToAnotherPage()
+            // moveToAnotherPage()
+            val nickname = editText.text.toString()
+
+            // 닉네임 정보를 인텐트에 추가해 ProfileActivity로 전달
+            val intent = Intent(this, ProfileActivity::class.java)
+            intent.putExtra("nickname", nickname)
+            startActivity(intent)
         }
     }
 
